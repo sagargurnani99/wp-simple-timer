@@ -1,0 +1,82 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+}
+body{
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+#simple-timer {
+    box-shadow: 0 22px 44px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    position: relative;
+    margin: 20px auto;
+    overflow: hidden;
+}
+.counter-header-section{
+	width: 100%;
+	height: 30px;
+	background: #efefef;
+}
+.counter-footer-section{
+	width: 100%;
+	height: 30px;
+	background:#fff;
+}
+#simple-timer svg {
+    width: 85px;
+    height: 60px;
+    position: absolute;
+    top: -26px;
+    left: -12px;
+}
+#countdown-timer-container{
+	background-color: rgb(85, 38, 185);
+	color: rgb(255, 255, 255);
+	width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+#countdown-timer-container .countdown-timer-inner{
+        display: flex;
+    flex-direction: column;
+}
+#countdown-timer-container .countdown-timer-inner .timer-header-title{
+    text-align: center;
+    font-size: 28px;
+}
+#countdown-timer-container .countdown-timer-inner .countdown-timer-item{
+    margin-top: 21px;
+    display: flex;
+    justify-content: center;
+}
+#countdown-timer-container .countdown-timer-inner .countdown-timer-item .countdown-timer-item-group{
+	margin: 0 11px;
+	    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#countdown-timer-container .countdown-timer-inner .countdown-timer-item .timer-item-value {
+    font-size: 35px;
+    line-height: 41px;
+    padding:2px 8px 5px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+}
+#countdown-timer-container .countdown-timer-inner .countdown-timer-item .timer-item-group-label {
+    max-width: 80.5px;
+    display: block;
+    text-align: center;
+    margin-top: 4px;
+    color: currentColor;
+    font-size: 14px;
+    backface-visibility: hidden;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

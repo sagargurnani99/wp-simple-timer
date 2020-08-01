@@ -107,8 +107,8 @@ if( !class_exists('SimpleTimerMetaBox')) {
                 $newTime  = date("c", strtotime('+' . $newHours . ' hours'));
  
                 /**
-                 * Don't change the value of hours if only
-                 * the title is changed
+                 * Don't change the value of hours
+                 * if only title is changed
                  */
                 if( $oldHours !== $newHours ) {
                     update_post_meta(

@@ -20,13 +20,6 @@ defined( 'ABSPATH' ) or die;
 if( !class_exists('SimpleTimer') ) {
 	class SimpleTimer {
 		/**
-		 * Class variable for the site url
-		 *
-		 * @var  String
-		 */
-		public $site_url;
-
-		/**
 		 * Class variable for the plugin path
 		 *
 		 * @var  String
@@ -51,7 +44,6 @@ if( !class_exists('SimpleTimer') ) {
 			/**
 			 * Assign values to the class members
 			 */
-			$this->site_url    = get_site_url();
 			$this->plugin_path = plugin_dir_path( __FILE__ );
 			$this->plugin_url  = plugins_url( null, __FILE__ );
 
@@ -87,7 +79,7 @@ if( !class_exists('SimpleTimer') ) {
 		 *
 		 * @return  String
 		 *
-		 * @since   [build_version]
+		 * @since   1.0.0
 		 */
 		public function append_timer_post_meta_data( $content ) {
 			$pluginPath = $this->plugin_path;

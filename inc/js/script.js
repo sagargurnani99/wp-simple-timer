@@ -1,5 +1,49 @@
+let postElems = document.querySelectorAll('.simple-timer');
+let loop;
+// let postId;
+// let countDownDate;
+
+// let x;
+
+for( loop=0; loop < postElems.length; loop++ ) {
+	let postId        = postElems[loop].getAttribute( 'data-post-id' );
+	let countDownDate = postElems[loop].getAttribute( 'data-countdown-date' );
+
+	countDownDate = new Date(countDownDate).getTime();
+
+	postId = parseInt( postId );
+
+	let x = setInterval( function() {
+		// Get today's date and time
+		let now = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distance = countDownDate - now;
+
+		// Time calculations for days, hours, minutes and seconds
+		let hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+		if(hours < "10") { hours = "0" + hours; }
+		if(minutes < "10") { minutes = "0" + minutes; }
+		if(seconds < "10") { seconds = "0" + seconds; }
+
+		// Display the result in the element with id="demo"
+		document.getElementById('hours'+postId).innerHTML   = hours;
+		document.getElementById('minutes'+postId).innerHTML = minutes;
+		document.getElementById('seconds'+postId).innerHTML = seconds;
+
+		// If the count down is finished, write some text
+		if (distance <= 0) {
+			clearInterval(x);
+			document.getElementById('countdown-timer-container'+postId).innerHTML = "EXPIRED";
+		}
+	}, 1000);
+}
+
 // Update the count down every 1 second
-var x = setInterval( function() {
+/*var x = setInterval( function() {
 	// Get today's date and time
 	var now = new Date().getTime();
 
@@ -25,4 +69,4 @@ var x = setInterval( function() {
 		clearInterval(x);
 		document.getElementById('countdown-timer-container').innerHTML = "EXPIRED";
 	}
-}, 1000);
+}, 1000);*/

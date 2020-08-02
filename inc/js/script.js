@@ -1,9 +1,5 @@
 let postElems = document.querySelectorAll('.simple-timer');
 let loop;
-// let postId;
-// let countDownDate;
-
-// let x;
 
 for( loop=0; loop < postElems.length; loop++ ) {
 	let postId        = postElems[loop].getAttribute( 'data-post-id' );

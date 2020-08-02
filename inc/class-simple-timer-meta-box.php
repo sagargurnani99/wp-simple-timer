@@ -77,6 +77,13 @@ if( !class_exists('SimpleTimerMetaBox')) {
                         <input type="number" name="_simple_timer_hours" id="_simple_timer_hours" min="0" max="24" step="1" placeholder="<?php _e('Please enter the number hours'); ?>" value="<?php echo absint($hours); ?>">
                     </td>
                 </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="checkbox" name="_simple_timer_deactivate" id="_simple_timer_deactivate" value="1">
+                        <label for="_simple_timer_deactivate"><?php _e('Deactivate'); ?></label>
+                    </td>
+                </tr>
             </table>
             <?php
         }
@@ -91,41 +98,46 @@ if( !class_exists('SimpleTimerMetaBox')) {
          * @since   1.0.0
          */
         public function save_meta_box_values( Int $post_id ) {
-            /**
-             * Update meta post values for the title field
-             */
-            if( array_key_exists('_simple_timer_title', $_POST) ) {
-                update_post_meta(
-                    $post_id,
-                    '_simple_timer_title',
-                    sanitize_text_field( $_POST['_simple_timer_title'] )
-                );
-            }
-
-            /**
-             * Update meta post values for the hours field
-             */
-            if( array_key_exists('_simple_timer_hours', $_POST) ) {
-                $oldHours = (int) get_post_meta($post_id, '_simple_timer_hours', true);
-                $newHours = absint( $_POST['_simple_timer_hours'] );
-                $newTime  = date("c", strtotime('+' . $newHours . ' hours'));
- 
+            if( array_key_exists('_simple_timer_deactivate', $_POST) && absint($_POST['_simple_timer_deactivate']) == 1 ) {
+                delete_post_meta( $post_id, '_simple_timer_title' );
+                delete_post_meta( $post_id, '_simple_timer_hours' );
+            } else {
                 /**
-                 * Don't updated the value of hours in post meta
-                 * table if only "title" is updated
+                 * Update meta post values for the title field
                  */
-                if( $oldHours !== $newHours ) {
+                if( array_key_exists('_simple_timer_title', $_POST) && $_POST['_simple_timer_title'] != null ) {
                     update_post_meta(
                         $post_id,
-                        '_simple_timer_hours',
-                        absint($newHours)
+                        '_simple_timer_title',
+                        sanitize_text_field( $_POST['_simple_timer_title'] )
                     );
+                }
 
-                    update_post_meta(
-                        $post_id,
-                        '_simple_timer_scheduled_time',
-                        sanitize_text_field($newTime)
-                    );
+                /**
+                 * Update meta post values for the hours field
+                 */
+                if( array_key_exists('_simple_timer_hours', $_POST) && absint($_POST['_simple_timer_hours']) > 0 && absint($_POST['_simple_timer_hours']) < 24 ) {
+                    $oldHours = (int) get_post_meta($post_id, '_simple_timer_hours', true);
+                    $newHours = absint( $_POST['_simple_timer_hours'] );
+                    $newTime  = date("c", strtotime('+' . $newHours . ' hours'));
+     
+                    /**
+                     * Don't updated the value of hours in post meta
+                     * table if only "title" is updated
+                     */
+                    if( $oldHours !== $newHours ) {
+                        update_post_meta(
+                            $post_id,
+                            '_simple_timer_hours',
+                            absint($newHours)
+                        );
+
+                        update_post_meta(
+                            $post_id,
+                            '_simple_timer_scheduled_time',
+                            sanitize_text_field($newTime)
+                        );
+                    }
                 }
             }
         }

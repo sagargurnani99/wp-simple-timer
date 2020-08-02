@@ -106,7 +106,7 @@ if( !class_exists('SimpleTimer') ) {
             $hours = get_post_meta( $postId, '_simple_timer_hours', true );
             $scheduledTime = get_post_meta( $postId, '_simple_timer_scheduled_time', true );
 
-			if( $scheduledTime != null ) {
+			if( $title != null && absint($hours) > 0 ) {
 	            /**
 	             * Get the content from the HTML view file
 	             */

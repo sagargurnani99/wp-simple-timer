@@ -66,7 +66,14 @@ if( !class_exists('SimpleTimer') ) {
 		 * @since   1.0.0
 		 */
 		public function plugin_enqueue() {
+			/**
+			 * Enqueue the plugin style(s)
+			 */
 		    wp_enqueue_style( 'simple-timer', $this->plugin_url . '/inc/css/style.css', array(), time() );
+
+		    /**
+		     * Enqueue the plugin script(s)
+		     */
 		    wp_enqueue_script( 'simple-timer', $this->plugin_url . '/inc/js/script.js', array(), time(), true );
 		}
 
@@ -98,13 +105,22 @@ if( !class_exists('SimpleTimer') ) {
             $hours = get_post_meta( $postId, '_simple_timer_hours', true );
             $scheduledTime = get_post_meta( $postId, '_simple_timer_scheduled_time', true );
 
+            /**
+             * Get the content from the HTML view file
+             */
             ob_start();
             include $pluginPath . 'template_parts/timer.php';
 			$timer_html = ob_get_contents();
 			ob_end_clean();
 
+			/**
+			 * Concatenate the file content to the post content
+			 */
 			$content .= $timer_html;
 
+			/**
+			 * Send the output back to the browser
+			 */
 	        echo $content;
 		}
 	}

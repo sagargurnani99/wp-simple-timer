@@ -29,14 +29,17 @@ if( !class_exists('SimpleTimerMetaBox')) {
          *
          * @since   1.0.0
          */
-        public function add_plugin_meta_box()
-        {
+        public function add_plugin_meta_box() {
+            /**
+             * Add custom meta boxes for add and
+             * edit post pages in the admin panel
+             */
             add_meta_box(
                 'simple-timer-options',
                 __( 'Simple Timer' ),
                 array( $this, 'render_plugin_meta_box' ),
                 'post',
-                'side',
+                'normal',
                 'high'
             );
         }
@@ -50,8 +53,10 @@ if( !class_exists('SimpleTimerMetaBox')) {
          *
          * @since   1.0.0
          */
-        public function render_plugin_meta_box( $post )
-        {
+        public function render_plugin_meta_box( $post ) {
+            /**
+             * Get the post meta values to show in the form fields
+             */
             $title = get_post_meta($post->ID, '_simple_timer_title', true);
             $hours = get_post_meta($post->ID, '_simple_timer_hours', true);
             ?>
@@ -69,7 +74,7 @@ if( !class_exists('SimpleTimerMetaBox')) {
                         <label for="_simple_timer_hours"><?php _e('Number of Hours'); ?></label>
                     </td>
                     <td>
-                        <input type="number" name="_simple_timer_hours" id="_simple_timer_hours" min="0" step="1" placeholder="<?php _e('Please enter the number hours'); ?>" value="<?php echo absint($hours); ?>">
+                        <input type="number" name="_simple_timer_hours" id="_simple_timer_hours" min="0" max="24" step="1" placeholder="<?php _e('Please enter the number hours'); ?>" value="<?php echo absint($hours); ?>">
                     </td>
                 </tr>
             </table>
@@ -85,8 +90,7 @@ if( !class_exists('SimpleTimerMetaBox')) {
          *
          * @since   1.0.0
          */
-        public function save_meta_box_values( Int $post_id )
-        {
+        public function save_meta_box_values( Int $post_id ) {
             /**
              * Update meta post values for the title field
              */
@@ -107,8 +111,8 @@ if( !class_exists('SimpleTimerMetaBox')) {
                 $newTime  = date("c", strtotime('+' . $newHours . ' hours'));
  
                 /**
-                 * Don't change the value of hours
-                 * if only title is changed
+                 * Don't updated the value of hours in post meta
+                 * table if only "title" is updated
                  */
                 if( $oldHours !== $newHours ) {
                     update_post_meta(
